@@ -1,14 +1,18 @@
-require("dotenv").config()
-require("./src/config/database").connect()
-const express = require("express")
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
-const User = require("./src/model/user")
-const auth = require("./src/middleware/auth")
+import "dotenv/config"
+import "./src/config/database.js"
+import express from "express"
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import { User } from "./src/model/user.js"
+import auth from "./src/middleware/auth.js"
 
 const app = express()
 
 app.use(express.json())
+
+app.get("/", async (req, res) => {
+  return res.status(200).send("A Aplicação está no ar")
+})
 
 app.post("/register", async (req, res) => {
   try {
@@ -81,4 +85,4 @@ app.post("/welcome", auth, (req, res) => {
   res.status(200).send("Welcome 🙌 ")
 })
 
-module.exports = app
+export default app

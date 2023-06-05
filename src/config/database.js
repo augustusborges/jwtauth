@@ -1,8 +1,8 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose"
 
 const { MONGO_URI } = process.env
 
-exports.connect = () => {
+const connect = () => {
   // Connecting to the database
   mongoose
     .connect(MONGO_URI, {
@@ -18,3 +18,5 @@ exports.connect = () => {
       process.exit(1)
     })
 }
+
+export default connect
