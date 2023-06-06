@@ -9,7 +9,6 @@ dotenv.config()
 MongoConnection.connect()
 
 async function registerUser(req: Request, res: Response, next: NextFunction) {
-  console.log("No registro")
   try {
     const { first_name, last_name, email, password } = req.body
 
@@ -44,4 +43,31 @@ async function registerUser(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export default { registerUser }
+async function login(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { email, password } = req.body
+
+    if (!(email && password)) {
+      res.status(400).send("É obrigatorio informar login e senha")
+    }
+
+    const user = await User.findOne({ email })
+
+    if (user && (await bcrypt.compare(password, user.password as string))) {
+      const token = jwt.sign({ user_id: user._id, email }, process.env.TOKEN_KEY as string, {
+        expiresIn: "2h"
+      })
+
+      // save user token
+      user.token = token
+
+      // user
+      res.status(200).json(user)
+    }
+    res.status(400).send("Credenciais invalidas. Acesso negado")
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export default { registerUser, login }
