@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 import jwt, { Secret, JwtPayload } from "jsonwebtoken"
 import dotenv from "dotenv"
 import { MongoConnection } from "../config/database"
-
+import { Usuarios } from "../model/usuarios"
 dotenv.config()
 MongoConnection.connect()
 
@@ -70,4 +70,20 @@ async function login(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export default { registerUser, login }
+async function listarUsuarios(req: Request, res: Response, next: NextFunction) {
+  const usuarios = new Usuarios()
+
+  await usuarios.listaUsuarios()
+
+  res.status(200).send("Acima os usuarios cadastrados no sistema")
+}
+
+async function cadastraUsuario(req: Request, res: Response, next: NextFunction) {
+  const usuarios = new Usuarios()
+
+  await usuarios.cadastraUsuario()
+
+  res.status(200).send("Usuario cadastrado no sistema")
+}
+
+export default { registerUser, login, listarUsuarios, cadastraUsuario }
