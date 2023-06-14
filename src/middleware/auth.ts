@@ -1,4 +1,4 @@
-//import { Jwt } from "jsonwebtoken"
+import { Jwt } from "jsonwebtoken"
 import { Request, Response, NextFunction } from "express"
 import { encode, TAlgorithm } from "jwt-simple"
 
