@@ -1,9 +1,10 @@
 import express from "express"
 import userController from "../controller/userController"
 
-const router = express.Router()
+const userRouter = express.Router()
 
-router.post("/v1.0/api/", userController.registerUser)
-router.post("/v1.0/api/login", userController.login)
+userRouter.route("/v1.0/api/user/").post(userController.registerUser)
 
-export default router
+userRouter.route("/v1.0/api/user/login/").post(userController.login)
+
+export default userRouter

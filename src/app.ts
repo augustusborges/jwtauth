@@ -5,7 +5,8 @@ import morgan from "morgan"
 import helmet from "helmet"
 import userRouter from "./router/userRouter"
 import livroRouter from "./router/livroRouter"
-import usuarioRouter from "./router/usuarioRouter"
+import outroRouter from "./router/outroRouter"
+
 const app = express()
 app.use(morgan("tiny"))
 app.use(cors())
@@ -14,5 +15,6 @@ app.use(express.json())
 
 app.use(userRouter)
 app.use(livroRouter)
-app.use(usuarioRouter)
+app.use(outroRouter)
+
 export default app

@@ -1,9 +1,8 @@
 import express from "express"
 import livroController from "../controller/livroController"
 
-const router = express.Router()
+const livroRouter = express.Router()
 
-router.get("/v1.0/api/livro/", livroController.listaLivros)
-router.post("/v1.0/api/livro/", livroController.cadastraLivros)
+livroRouter.route("/v1.0/api/livro/").get(livroController.listaLivros).post(livroController.cadastraLivros)
 
-export default router
+export default livroRouter
