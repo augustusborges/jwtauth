@@ -15,3 +15,31 @@ model users {
   password    String
   token       String? 
 }
+
+model usuario {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nome  String
+  sobrenome   String   
+  email       String  @unique
+  senha    String
+  token       String? 
+}
+
+model papel {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nome  String
+  descricao   String?   
+
+}
+
+model permissao {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nome  String
+  descricao   String?   
+}
+
+model perfil {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nome  String
+  descricao   String?   
+}
