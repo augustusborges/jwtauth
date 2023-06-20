@@ -20,7 +20,7 @@ export class Usuario {
   async cadastraUsuario(usuario: user): Promise<user> {
     try {
       await prisma.$connect()
-      await prisma.users.create({
+      const novoUsuario = (await prisma.users.create({
         data: {
           first_name: usuario.first_name,
           last_name: usuario.last_name,
@@ -28,8 +28,7 @@ export class Usuario {
           password: usuario.password,
           token: ""
         }
-      })
-      const novoUsuario = await this.encontrarUsuarioPorEmail(usuario.email)
+      })) as user
       await prisma.$disconnect()
       return novoUsuario
     } catch (err) {

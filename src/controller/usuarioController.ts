@@ -57,7 +57,6 @@ async function login(req: Request, res: Response, next: NextFunction) {
 
       usuarioCadastrado.token = token
 
-      // user
       res.status(200).json(usuarioCadastrado)
     }
     res.status(400).send("Credenciais invalidas. Acesso negado")

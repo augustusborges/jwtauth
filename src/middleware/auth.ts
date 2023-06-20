@@ -1,20 +1,20 @@
-import { Jwt } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import { Request, Response, NextFunction } from "express"
 import { encode, TAlgorithm } from "jwt-simple"
 
 const config = process.env
 
-const verifyToken = (req: Request, res: Response, next: NextFunction) => {
-  const token = req.body.token || req.query.token || req.headers["x-access-token"]
+const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+  const token: string = req.headers["x-access-token"] as string
 
   if (!token) {
-    return res.status(403).send("A token is required for authentication")
+    return res.status(403).send("O token informado é invalido")
   }
   try {
-    const decoded = Jwt.verify(token, config.TOKEN_KEY)
-    req.user = decoded
+    const decoded = jwt.verify(token, config.TOKEN_KEY as jwt.Secret)
+    req.body.user = await jwt.decode(token)
   } catch (err) {
-    return res.status(401).send("Invalid Token")
+    return res.status(401).send("Token invalido")
   }
   return next()
 }
