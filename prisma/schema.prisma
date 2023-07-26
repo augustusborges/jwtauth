@@ -16,30 +16,34 @@ model users {
   token       String? 
 }
 
-model usuario {
+model Usuario {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   nome  String
   sobrenome   String   
   email       String  @unique
   senha    String
   token       String? 
+  papel Papel @relation(fields: [papelId], references: [id])
+  papelId String @db.ObjectId 
 }
 
-model papel {
+model Papel {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nome  String
+  descricao   String? 
+  usuario Usuario[]
+
+}
+
+model Permissao {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   nome  String
   descricao   String?   
-
 }
 
-model permissao {
+model Perfil {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   nome  String
   descricao   String?   
 }
 
-model perfil {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  nome  String
-  descricao   String?   
-}
