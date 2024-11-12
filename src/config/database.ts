@@ -6,11 +6,7 @@ export class MongoConnection {
   static connect() {
     mongoose
       .connect(
-        process.env.MONGO_URI as string,
-        {
-          useNewUrlParser: true,
-          useUnifiedTopology: true
-        } as any
+        process.env.MONGO_URI as string
       )
       .then(() => {
         console.log("Successfully connected to database")

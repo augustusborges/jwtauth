@@ -1,5 +1,5 @@
-export interface user {
-  id?: string
+export interface usuario {
+  _id?: string
   first_name: string
   last_name: string
   email: string

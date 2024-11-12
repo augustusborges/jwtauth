@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client"
-import { user } from "../../src/@types/@userTypes"
+import { usuario } from "../@types/@usuarioTypes"
 
 const prisma = new PrismaClient()
 
-export class Usuario {
+export class UsuarioModel {
   async listaUsuarios() {
     try {
       await prisma.$connect()
@@ -17,7 +17,7 @@ export class Usuario {
     }
   }
 
-  async cadastraUsuario(usuario: user): Promise<user> {
+  async cadastraUsuario(usuario: usuario): Promise<usuario> {
     try {
       await prisma.$connect()
       const novoUsuario = (await prisma.users.create({
@@ -28,7 +28,7 @@ export class Usuario {
           password: usuario.password,
           token: ""
         }
-      })) as user
+      })) as usuario
       await prisma.$disconnect()
       return novoUsuario
     } catch (err) {
@@ -38,8 +38,8 @@ export class Usuario {
     }
   }
 
-  async encontrarUsuarioPorEmail(email: string): Promise<user> {
-    const usuario: user = (await prisma.users.findUnique({ where: { email } })) as user
+  async encontrarUsuarioPorEmail(email: string): Promise<usuario> {
+    const usuario: usuario = (await prisma.users.findUnique({ where: { email } })) as usuario
     return usuario
   }
 }

@@ -1,12 +1,13 @@
 import express from "express"
-import userController from "../controller/usuarioController"
-import verifyToken from "../middleware/auth"
+import {UsuarioController} from "../controller/usuarioController"
+//import verifyToken from "../middleware/auth"
+
 const userRouter = express.Router()
+const usuarioController = new UsuarioController() 
+userRouter.route("/v1.0/api/user/login/").post(usuarioController.login)
 
-userRouter.route("/v1.0/api/user/login/").post(userController.login)
+//userRouter.use(verifyToken)
 
-userRouter.use(verifyToken)
 
-userRouter.route("/v1.0/api/user/").post(userController.registerUser)
 
 export default userRouter
